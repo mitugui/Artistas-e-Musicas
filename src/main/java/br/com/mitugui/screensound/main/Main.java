@@ -1,8 +1,12 @@
 package br.com.mitugui.screensound.main;
 
+import br.com.mitugui.screensound.models.Artist;
+import br.com.mitugui.screensound.models.ArtistType;
 import br.com.mitugui.screensound.repository.ArtistRepository;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     Scanner scanner = new Scanner(System.in);
@@ -58,6 +62,30 @@ public class Main {
     }
 
     private void registerArtists() {
+        String keepGoing = "s";
+        while(keepGoing.equalsIgnoreCase("s")) {
+            System.out.println("Informe o nome desse artista: ");
+            var name = scanner.nextLine();
+            System.out.println("Informe o tipo desse artista (solo, dupla, grupo ou banda): ");
+            var type = scanner.nextLine();
+
+            try {
+                ArtistType artistType = ArtistType.fromPortuguese(type);
+                Artist artist = new Artist(name, artistType);
+                repository.save(artist);
+                System.out.println("Artista cadastrado com sucesso!");
+            } catch (IllegalArgumentException e) {
+                String validTypes = Arrays.stream(ArtistType.values())
+                        .map(ArtistType::getArtistTypeInPortuguese)
+                        .collect(Collectors.joining(", "));
+
+                System.out.println("Tipo \"" + type + "\" inválido!");
+                System.out.println("Os tipos válidos são os seguintes: " + validTypes);
+                System.out.println("Tente novamente!");
+            }
+            System.out.println("Deseja continuar (s/n)?");
+            keepGoing = scanner.nextLine();
+        }
     }
 
     private void registerSongs() {

@@ -18,6 +18,13 @@ public class Artist {
     @OneToMany(mappedBy = "artist")
     private List<Song> songs = new ArrayList<>();
 
+    public Artist() {}
+
+    public Artist(String name, ArtistType artistType) {
+        this.name = name;
+        this.type = artistType;
+    }
+
     @Override
     public String toString() {
         return "Nome: " + name +
