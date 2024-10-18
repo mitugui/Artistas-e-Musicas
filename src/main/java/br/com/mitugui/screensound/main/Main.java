@@ -1,9 +1,16 @@
 package br.com.mitugui.screensound.main;
 
+import br.com.mitugui.screensound.repository.ArtistRepository;
+
 import java.util.Scanner;
 
 public class Main {
     Scanner scanner = new Scanner(System.in);
+    ArtistRepository repository;
+
+    public Main(ArtistRepository repository) {
+        this.repository = repository;
+    }
 
     public void displayMenu() {
         var option = -1;
