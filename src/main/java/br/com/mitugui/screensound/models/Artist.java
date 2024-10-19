@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "artists")
@@ -25,6 +26,10 @@ public class Artist {
         this.type = artistType;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public List<Song> getSongs() {
         return songs;
     }
@@ -33,6 +38,10 @@ public class Artist {
     public String toString() {
         return "Nome: " + name +
                 ", Tipo: " + type +
-                ", Músicas: " + songs;
+                ", Músicas: [" +
+                songs.stream()
+                        .map(Song::getTitle)
+                        .collect(Collectors.joining(", ")) +
+                "]";
     }
 }

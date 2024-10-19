@@ -6,6 +6,7 @@ import br.com.mitugui.screensound.models.Song;
 import br.com.mitugui.screensound.repository.ArtistRepository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -107,6 +108,8 @@ public class Main {
     }
 
     private void listSongs() {
+        List<Artist> artists = repository.findAll();
+        artists.forEach(a -> a.getSongs().forEach(System.out::println));
     }
 
     private void searchSongByArtist() {

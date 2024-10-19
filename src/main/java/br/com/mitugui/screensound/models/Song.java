@@ -19,6 +19,10 @@ public class Song {
         this.title = songName;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
@@ -26,6 +30,6 @@ public class Song {
     @Override
     public String toString() {
         return "Título: " + title +
-                ", Artista: " + artist;
+                ", Artista: " + artist.getName();
     }
 }
