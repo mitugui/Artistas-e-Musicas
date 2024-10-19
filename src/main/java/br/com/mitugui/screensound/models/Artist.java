@@ -15,7 +15,7 @@ public class Artist {
     @Enumerated(EnumType.STRING)
     private ArtistType type;
 
-    @OneToMany(mappedBy = "artist")
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Song> songs = new ArrayList<>();
 
     public Artist() {}
@@ -23,6 +23,10 @@ public class Artist {
     public Artist(String name, ArtistType artistType) {
         this.name = name;
         this.type = artistType;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
     }
 
     @Override

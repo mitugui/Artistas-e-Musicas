@@ -13,6 +13,16 @@ public class Song {
     @ManyToOne
     private Artist artist;
 
+    public Song() {}
+
+    public Song(String songName) {
+        this.title = songName;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     @Override
     public String toString() {
         return "Título: " + title +

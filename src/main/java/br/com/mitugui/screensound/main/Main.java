@@ -2,9 +2,11 @@ package br.com.mitugui.screensound.main;
 
 import br.com.mitugui.screensound.models.Artist;
 import br.com.mitugui.screensound.models.ArtistType;
+import br.com.mitugui.screensound.models.Song;
 import br.com.mitugui.screensound.repository.ArtistRepository;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -89,6 +91,19 @@ public class Main {
     }
 
     private void registerSongs() {
+        System.out.println("Cadastrar música de que artista?");
+        var name = scanner.nextLine();
+        Optional<Artist> artist = repository.findByNameContainingIgnoreCase(name);
+        if (artist.isPresent()) {
+            System.out.println("Informe o título da música: ");
+            var songName = scanner.nextLine();
+            Song song = new Song(songName);
+            song.setArtist(artist.get());
+            artist.get().getSongs().add(song);
+            repository.save(artist.get());
+        } else {
+            System.out.println("Artista não encontrado");
+        }
     }
 
     private void listSongs() {
