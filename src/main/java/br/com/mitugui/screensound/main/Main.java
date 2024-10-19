@@ -103,7 +103,7 @@ public class Main {
             artist.get().getSongs().add(song);
             repository.save(artist.get());
         } else {
-            System.out.println("Artista não encontrado");
+            System.out.println("Artista não encontrado!");
         }
     }
 
@@ -113,6 +113,19 @@ public class Main {
     }
 
     private void searchSongByArtist() {
+        System.out.println("Digite o nome do artista: ");
+        var name = scanner.nextLine();
+        Optional<Artist> artist = repository.findByNameContainingIgnoreCase(name);
+        if (artist.isPresent()) {
+            List<Song> artistSongs = repository.searchSongsByArtist(name);
+            if (!artistSongs.isEmpty()) {
+                artistSongs.forEach(System.out::println);
+            } else {
+                System.out.println("O artista pesquisado não possui músicas gravadas no banco de dados!");
+            }
+        } else {
+            System.out.println("Artista não encontrado!");
+        }
     }
 
     private void searchArtistData() {
